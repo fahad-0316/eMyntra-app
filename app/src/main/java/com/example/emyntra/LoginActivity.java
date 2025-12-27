@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText etEmailLogin, etPasswordLogin;
     private Button btnLogin;
-    private TextView tvSignup;
+    private TextView tvSignup, tvForgotPassword; // Added tvForgotPassword
     private FirebaseAuth mAuth;
 
     @Override
@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         etPasswordLogin = findViewById(R.id.etPasswordLogin);
         btnLogin = findViewById(R.id.btnLogin);
         tvSignup = findViewById(R.id.tvSignup);
+        tvForgotPassword = findViewById(R.id.tvForgotPassword); // Initialize the Forgot Password link
 
         // Ensure hint is explicit
         // Removed setHint to avoid double hint issue
@@ -61,6 +62,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+            }
+        });
+
+        // Forgot Password Click Listener
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
             }
         });
     }

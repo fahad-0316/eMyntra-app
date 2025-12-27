@@ -33,6 +33,12 @@
             android:name=".LoginActivity"
             android:exported="false" />
 
+        <!-- NEW: Forgot Password Activity -->
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false"
+            android:parentActivityName=".LoginActivity" />
+
         <!-- Main App Activity -->
         <activity
             android:name=".MainActivity"

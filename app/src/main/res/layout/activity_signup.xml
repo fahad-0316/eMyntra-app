@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="24dp"
+    tools:context=".SignupActivity">
+
+    <!-- App Logo -->
+    <ImageView
+        android:id="@+id/applogo_signup"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
+        android:src="@drawable/applogo"
+        android:contentDescription="eMyntra Logo" />
+
+
+
+    <TextView
+        android:id="@+id/tvLoginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:text="Sign Up"
+        android:layout_marginBottom="16dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+         />
+
+    <!-- Email EditText -->
+    <!-- Added drawablePadding to handle the validation icons cleanly -->
+    <EditText
+        android:id="@+id/etEmail"
+        style="@style/AppTheme.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Email"
+        android:drawablePadding="12dp"
+        android:inputType="textEmailAddress" />
+
+    <!-- Username EditText -->
+    <EditText
+        android:id="@+id/etUsername"
+        style="@style/AppTheme.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawablePadding="12dp"
+        android:hint="Enter Username"
+        android:inputType="text" />
+
+    <!-- Password EditText -->
+    <EditText
+        android:id="@+id/etPassword"
+        style="@style/AppTheme.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawablePadding="12dp"
+        android:hint="Create Password"
+        android:inputType="textPassword" />
+
+    <!-- Signup Button -->
+    <Button
+        android:id="@+id/btnSignup"
+        style="@style/AppTheme.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Sign Up" />
+
+    <!-- Login TextView -->
+    <TextView
+        android:id="@+id/tvLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Already have an account? Login"
+        android:textColor="#E0007A"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:padding="8dp"/>
+
+</LinearLayout>

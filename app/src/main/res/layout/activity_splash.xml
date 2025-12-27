@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This layout uses a RelativeLayout.
+     We set android:gravity="center" to center the main logo/title block.
+     We will manually place the credits at the bottom. -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorSplashBackground"
+    tools:context=".SplashActivity">
+
+    <!-- This block is for your centered content.
+         Using a LinearLayout inside the RelativeLayout
+         is an easy way to group the logo and title together. -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- This is your app logo.
+             I kept your 200dp size. -->
+        <ImageView
+            android:id="@+id/applogo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/applogo"
+            android:contentDescription="eMyntra Logo" />
+
+        <!-- This is the styled TextView for your app name. -->
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="serif-thin"
+            android:text="eMyntra"
+            android:textColor="@color/colorAccent"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- This is the "Created by Fahad" TextView.
+         I moved it to the bottom of the screen, which is
+         a more traditional place for credits. -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Created by L1F23BSCS0816"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp"
+        android:gravity="center" />
+
+</RelativeLayout>

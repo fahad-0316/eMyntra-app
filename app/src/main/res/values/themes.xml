@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.EMyntra" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Background color for screens -->
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <!-- Set the default text color -->
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+
+    <style name="Theme.EMyntra" parent="Base.Theme.EMyntra" />
+</resources>

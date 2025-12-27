@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/nav_under999"
+        android:icon="@drawable/ic_dollar"
+        android:title="Under $999" />
+    <item
+        android:id="@+id/nav_luxury"
+        android:icon="@drawable/ic_luxury"
+        android:title="Luxury" />
+    <item
+        android:id="@+id/nav_bag"
+        android:icon="@drawable/ic_bag"
+        android:title="Bag" />
+</menu>

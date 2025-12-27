@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <!-- This file defines all the colors for your app theme -->
+        <!-- Your main brand colors -->
+        <color name="colorPrimary">#6A0A4A</color>
+        <color name="colorPrimaryDark">#4A0733</color> <!-- A darker version for the status bar -->
+        <color name="colorAccent">#E0007A</color> <!-- For buttons and controls -->
+        <color name="colorAccentSecondary">#F26C21</color> <!-- For highlights -->
+
+        <!-- Background and Text colors -->
+        <color name="colorSplashBackground">#6A0A4A</color> <!-- The rich magenta for the splash -->
+        <color name="colorBackground">#FFFFFF</color> <!-- Clean white for most screens -->
+        <color name="colorTextPrimary">#333333</color> <!-- Dark grey for text -->
+        <color name="colorTextOnPrimary">#FFFFFF</color> <!-- White text for dark backgrounds -->
+
+        <!-- Button state colors -->
+        <color name="colorButtonSuccess">#388E3C</color>
+        <color name="colorButtonError">#D32F2F</color>
+
+</resources>

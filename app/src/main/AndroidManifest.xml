@@ -6,6 +6,9 @@
     <!-- 1. ADD CAMERA PERMISSION -->
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <!-- 2. ADD INTERNET PERMISSION (Required for AI Chatbot) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,6 +19,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EMyntra"
         tools:targetApi="31">
+
+        <!-- 3. ADD ADMOB APP ID (This is the official Test ID) -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
 
         <!-- 2. ADD THE SCANNER ACTIVITY -->
         <activity
@@ -49,10 +57,11 @@
             android:exported="false"
             android:parentActivityName=".LoginActivity" />
 
-        <!-- Main App Activity -->
+        <!-- Main App Activity (UPDATED windowSoftInputMode) -->
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
 
         <!-- Other App Activities -->
         <activity

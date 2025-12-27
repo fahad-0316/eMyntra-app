@@ -15,7 +15,6 @@
         android:background="@color/colorBackground">
 
         <!-- SECTION 5: Bottom Navigation -->
-        <!-- This stays pinned to the bottom of every screen -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
@@ -28,18 +27,53 @@
             app:elevation="8dp"
             app:menu="@menu/bottom_nav_menu" />
 
+        <!-- AD CONTAINER (Holds Ad + Close Button) -->
+        <!-- Placed ABOVE the Bottom Navigation -->
+        <RelativeLayout
+            android:id="@+id/ad_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottom_navigation"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="12dp"> <!-- Padding for the close button space -->
+
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+            </com.google.android.gms.ads.AdView>
+
+            <!-- CLOSE BUTTON (X) -->
+            <ImageView
+                android:id="@+id/btn_close_ad"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignTop="@id/adView"
+                android:layout_alignEnd="@id/adView"
+                android:layout_marginTop="-10dp"
+                android:layout_marginEnd="-5dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:background="@drawable/button_background"
+                app:tint="@android:color/white"
+                android:elevation="4dp"
+                android:padding="2dp"
+                android:contentDescription="Close Ad"/>
+        </RelativeLayout>
+
         <!-- MAIN CONTAINER -->
-        <!-- This is where HomeFragment, Under999Fragment, LuxuryFragment, etc. will appear -->
-        <!-- It takes up all space above the bottom navigation -->
+        <!-- Updated: Now it sits ABOVE the Ad Container -->
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/bottom_navigation" />
+            android:layout_above="@id/ad_container" />
 
     </RelativeLayout>
 
-    <!-- 2. The Navigation Drawer (Hidden side menu) -->
+    <!-- 2. The Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

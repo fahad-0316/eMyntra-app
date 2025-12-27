@@ -40,8 +40,13 @@ public class LuxuryFragment extends Fragment {
     private OkHttpClient client;
 
     // --- API KEYS ---
+
+
+
     private static final String GEMINI_API_KEY = "YOUR_GEMINI_API_KEY";
     private static final String PERPLEXITY_API_KEY = "YOUR_PERPLEXITY_API_KEY";
+
+
 
     // --- ENDPOINTS ---
     private static final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + GEMINI_API_KEY;

@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class SplashActivity extends AppCompatActivity {
 
-    // Splash screen timer
     private static final int SPLASH_TIME_OUT = 2000; // 2 seconds
 
     @Override
@@ -16,19 +18,22 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         new Handler().postDelayed(new Runnable() {
-            /*
-             * Showing splash screen with a timer. This will be useful when you
-             * want to show case your app logo / company
-             */
             @Override
             public void run() {
-                // This method will be executed once the timer is over
-                // Start your app's signup activity
-                // We navigate to SignupActivity first as requested.
-                Intent i = new Intent(SplashActivity.this, SignupActivity.class);
-                startActivity(i);
+                // Check if user is already logged in
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                // close this activity
+                if (currentUser != null) {
+                    // User is signed in, send them straight to Main Activity
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    // No user is signed in, send them to Login Activity
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
+
+                // Close this activity
                 finish();
             }
         }, SPLASH_TIME_OUT);

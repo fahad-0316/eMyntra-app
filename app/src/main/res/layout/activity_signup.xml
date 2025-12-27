@@ -45,15 +45,7 @@
         android:inputType="textEmailAddress" />
 
     <!-- Username EditText -->
-    <EditText
-        android:id="@+id/etUsername"
-        style="@style/AppTheme.EditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:drawablePadding="12dp"
-        android:hint="Enter Username"
-        android:inputType="text" />
+
 
     <!-- Password EditText -->
     <EditText

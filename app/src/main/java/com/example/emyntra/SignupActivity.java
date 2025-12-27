@@ -2,12 +2,12 @@ package com.example.emyntra;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,25 +17,28 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+
+// Firebase Imports
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private EditText etEmail, etUsername, etPassword;
+    private EditText etEmail, etPassword;
     private Button btnSignup;
     private TextView tvLogin;
 
-    private SharedPreferences sharedPreferences;
-    public static final String PREFS_NAME = "eMyntraPrefs";
-    public static final String KEY_USERNAME = "username";
-    public static final String KEY_PASSWORD = "password";
+    private FirebaseAuth mAuth;
 
-    // Flags to track if current inputs are valid
+    // Flags to track validation status
     private boolean isEmailValid = false;
-    private boolean isUsernameValid = false;
     private boolean isPasswordValid = false;
 
     @Override
@@ -47,19 +50,19 @@ public class SignupActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        // Initialize views
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        // Initialize Views
         etEmail = findViewById(R.id.etEmail);
-        etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnSignup = findViewById(R.id.btnSignup);
         tvLogin = findViewById(R.id.tvLogin);
 
-        sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-
-        // --- Setup Real-time Validation Listeners ---
+        // --- 1. SETUP REAL-TIME VALIDATIONS ---
         setupValidationListeners();
 
-        // Signup button click listener
+        // --- 2. SETUP FIREBASE SIGNUP ---
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,10 +70,10 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        // Login text click listener
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Navigate to Login Activity
                 Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
@@ -78,19 +81,17 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void setupValidationListeners() {
-        // 1. Email Listener
+        // Email Validation Listener
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
             @Override
             public void afterTextChanged(Editable s) {
                 String input = s.toString().trim();
-                // Rule: Must contain @ and .
-                if (!input.isEmpty() && input.contains("@") && input.contains(".")) {
+                // Check for valid email format (contains @ and .)
+                if (!input.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(input).matches()) {
                     isEmailValid = true;
                     setValidationIcon(etEmail, true);
                 } else {
@@ -102,42 +103,16 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        // 2. Username Listener
-        etUsername.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String input = s.toString().trim();
-                // Rule: Min 4, Max 25 chars
-                if (input.length() >= 4 && input.length() <= 25) {
-                    isUsernameValid = true;
-                    setValidationIcon(etUsername, true);
-                } else {
-                    isUsernameValid = false;
-                    if (input.length() > 0) setValidationIcon(etUsername, false);
-                    else clearValidationIcon(etUsername);
-                }
-            }
-        });
-
-        // 3. Password Listener
+        // Password Validation Listener
         etPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
             @Override
             public void afterTextChanged(Editable s) {
                 String input = s.toString().trim();
                 // Rule: Min 4, Max 16 chars AND at least one special character
-                // Regex for special char: [^a-zA-Z0-9] means anything NOT a letter or number
                 boolean hasSpecialChar = Pattern.compile("[^a-zA-Z0-9]").matcher(input).find();
 
                 if (input.length() >= 4 && input.length() <= 16 && hasSpecialChar) {
@@ -152,9 +127,6 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Helper to set the icon on the right side of the EditText
-     */
     private void setValidationIcon(EditText editText, boolean isValid) {
         if (isValid) {
             editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_check_circle, 0);
@@ -168,66 +140,63 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void attemptSignup() {
-        String email = etEmail.getText().toString().trim();
-        String username = etUsername.getText().toString().trim();
+        final String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        // 1. Check for Empty Fields First
+        // 1. Check Empty first
         if (email.isEmpty()) {
-            showErrorToast("Please enter your Email");
+            showErrorToast("Please enter Email");
             showButtonErrorState(btnSignup);
             return;
         }
-
-        if (username.isEmpty()) {
-            showErrorToast("Please enter a Username");
-            showButtonErrorState(btnSignup);
-            return;
-        }
-
         if (password.isEmpty()) {
-            showErrorToast("Please enter a Password");
+            showErrorToast("Please enter Password");
             showButtonErrorState(btnSignup);
             return;
         }
 
-        // 2. Check Specific Validation Rules (if not empty but still invalid)
+        // 2. Check Validity Flags (Real-time checks)
         if (!isEmailValid) {
-            showErrorToast("Invalid Email: Must include '@' and '.'");
+            showErrorToast("Invalid Email format");
             showButtonErrorState(btnSignup);
             return;
         }
-
-        if (!isUsernameValid) {
-            showErrorToast("Invalid Username: Must be 4-25 characters");
-            showButtonErrorState(btnSignup);
-            return;
-        }
-
         if (!isPasswordValid) {
-            showErrorToast("Invalid Password: 4-16 chars & 1 special char (e.g. @, #, $)");
+            showErrorToast("Password too weak (add symbol, 4-16 chars)");
             showButtonErrorState(btnSignup);
             return;
         }
 
-        // All validations passed
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_USERNAME, username);
-        editor.putString(KEY_PASSWORD, password);
-        editor.apply();
+        // 3. Create User in Firebase
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Signup Success
+                            showButtonSuccessState(btnSignup);
 
-        showButtonSuccessState(btnSignup);
+                            // Delay navigation to show success green button
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Navigate to Login Activity to force fresh login
+                                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                                    startActivity(intent);
+                                    finish(); // Close SignupActivity
+                                }
+                            }, 1000);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }, 1000);
+                        } else {
+                            // Signup Failure (e.g., email already in use)
+                            showErrorToast("Signup Failed: " + task.getException().getMessage());
+                            showButtonErrorState(btnSignup);
+                        }
+                    }
+                });
     }
 
+    // Helper Methods for UI
     private void showButtonErrorState(final Button button) {
         final Drawable originalBackground = ContextCompat.getDrawable(this, R.drawable.button_background);
         button.setBackgroundResource(R.drawable.button_background_error);
@@ -245,12 +214,9 @@ public class SignupActivity extends AppCompatActivity {
 
     private void showErrorToast(String message) {
         LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.custom_toast,
-                (ViewGroup) findViewById(R.id.custom_toast_container));
-
-        TextView text = (TextView) layout.findViewById(R.id.toast_text);
+        View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.custom_toast_container));
+        TextView text = layout.findViewById(R.id.toast_text);
         text.setText(message);
-
         Toast toast = new Toast(getApplicationContext());
         toast.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 100);
         toast.setDuration(Toast.LENGTH_LONG);

@@ -33,6 +33,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth; // Import Firebase Auth
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -53,14 +54,14 @@ public class MainActivity extends AppCompatActivity implements
     private EditText etSearch;
     private ImageView ivSearchButton;
 
-    // --- Section 3: Fragment Tabs ---
+    // --- Section 3 & 4: Tabs and Fragments ---
     private LinearLayout llTabs; // The whole tab bar
     private TextView tvTabAll, tvTabMen, tvTabWomen, tvTabKids;
 
     // --- Section 5: Bottom Navigation ---
     private BottomNavigationView bottomNavigationView;
 
-    // --- SharedPreferences (for Date and Logout) ---
+    // --- SharedPreferences (for Date) ---
     private SharedPreferences sharedPreferences;
     public static final String PREFS_NAME = "eMyntraPrefs";
     public static final String KEY_SELECTED_DATE = "selected_date";
@@ -350,13 +351,18 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /**
-     * Logs out the user and returns to LoginActivity
+     * Logs out the user via Firebase and returns to LoginActivity
      */
     private void logoutUser() {
+        // 1. Sign out from Firebase (Crucial Step)
+        FirebaseAuth.getInstance().signOut();
+
+        // 2. Clear SharedPreferences (Good practice to clean up local data too)
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear(); // Clear all saved data
+        editor.clear();
         editor.apply();
 
+        // 3. Navigate back to Login
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

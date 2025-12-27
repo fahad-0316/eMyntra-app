@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.emyntra">
 
+    <!-- 1. ADD CAMERA PERMISSION -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EMyntra"
         tools:targetApi="31">
+
+        <!-- 2. ADD THE SCANNER ACTIVITY -->
+        <activity
+            android:name=".CaptureAct"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <!-- Splash Activity (Launcher) -->
         <activity
@@ -33,7 +43,7 @@
             android:name=".LoginActivity"
             android:exported="false" />
 
-        <!-- NEW: Forgot Password Activity -->
+        <!-- Forgot Password Activity -->
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false"

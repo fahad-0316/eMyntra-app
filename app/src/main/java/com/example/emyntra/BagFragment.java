@@ -48,7 +48,6 @@ public class BagFragment extends Fragment {
     // Hugging Face API Key
 
 
-
     private static final String HF_API_TOKEN = "YOUR_HUGGING_FACE_TOKEN";
 
     // Using Hugging Face Vision Transformer model for image classification

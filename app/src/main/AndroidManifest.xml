@@ -9,6 +9,9 @@
     <!-- 2. ADD INTERNET PERMISSION (Required for AI Chatbot) -->
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- 3. ADD NOTIFICATION PERMISSION (Required for Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -77,6 +80,15 @@
             android:name=".SupportChatActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <!-- Firebase Messaging Service (Required for Notifications) -->
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
     </application>
 

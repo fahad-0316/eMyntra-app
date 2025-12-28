@@ -43,10 +43,8 @@ public class LuxuryFragment extends Fragment {
 
 
 
-    private static final String GEMINI_API_KEY = "YOUR_GEMINI_API_KEY";
-    private static final String PERPLEXITY_API_KEY = "YOUR_PERPLEXITY_API_KEY";
-
-
+        private static final String GEMINI_API_KEY = "YOUR_GEMINI_API_KEY";
+        private static final String PERPLEXITY_API_KEY = "YOUR_PERPLEXITY_API_KEY";
 
     // --- ENDPOINTS ---
     private static final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + GEMINI_API_KEY;
@@ -69,8 +67,8 @@ public class LuxuryFragment extends Fragment {
         btnSend = view.findViewById(R.id.btn_send);
         spinnerModel = view.findViewById(R.id.spinner_model);
 
-        // Setup Spinner Options
-        String[] modelOptions = {"Google Gemini", "Perplexity AI"};
+        // Setup Spinner Options - Swapped so Perplexity is default
+        String[] modelOptions = {"Perplexity AI", "Google Gemini"};
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, modelOptions);
         spinnerModel.setAdapter(spinnerAdapter);
 

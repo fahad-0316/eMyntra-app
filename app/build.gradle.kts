@@ -53,4 +53,9 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
     implementation("com.google.android.gms:play-services-ads:23.1.0")
+
+    implementation("com.google.firebase:firebase-firestore")
+
+    implementation ("com.google.firebase:firebase-messaging")
+
 }

@@ -153,12 +153,9 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         // --- Handle Side Drawer Menu Clicks ---
-        if (id == R.id.nav_my_orders) {
-            Toast.makeText(this, "My Orders (Coming Soon)", Toast.LENGTH_SHORT).show();
-            drawerLayout.closeDrawer(GravityCompat.START);
-            return true;
-        } else if (id == R.id.nav_settings) {
-            Toast.makeText(this, "Account Settings (Coming Soon)", Toast.LENGTH_SHORT).show();
+        if (id == R.id.nav_support) {
+            // NEW: Open Support Chat
+            startActivity(new Intent(this, SupportChatActivity.class));
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         } else if (id == R.id.nav_logout) {

@@ -50,6 +50,8 @@ public class BagFragment extends Fragment {
 
     private static final String HF_API_TOKEN = "YOUR_HUGGING_FACE_TOKEN";
 
+
+
     // Using Hugging Face Vision Transformer model for image classification
     private static final String API_URL = "https://router.huggingface.co/hf-inference/models/google/vit-base-patch16-224";
 

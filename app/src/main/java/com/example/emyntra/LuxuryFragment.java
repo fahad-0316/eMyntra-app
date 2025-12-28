@@ -43,12 +43,57 @@ public class LuxuryFragment extends Fragment {
 
 
 
+
+
         private static final String GEMINI_API_KEY = "YOUR_GEMINI_API_KEY";
         private static final String PERPLEXITY_API_KEY = "YOUR_PERPLEXITY_API_KEY";
 
     // --- ENDPOINTS ---
     private static final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + GEMINI_API_KEY;
     private static final String PERPLEXITY_URL = "https://api.perplexity.ai/chat/completions";
+
+
+
+    // --- SYSTEM INSTRUCTION (TRAINING) ---
+    private static final String SYSTEM_INSTRUCTION =
+            "You are the official AI Fashion Assistant for the eMyntra app in Pakistan. " +
+                    "Your goal is to help users with shopping, outfit ideas, and fashion trends. " +
+
+                    "STRICT RULES: " +
+                    "1. ONLY answer questions related to fashion, clothing, accessories, styling, outfit combinations, and eMyntra services. " +
+                    "2. If a user asks about off-topic subjects (politics, medical advice, legal matters, etc.), politely refuse and redirect to fashion topics. " +
+                    "3. Be concise, polite, and professional in all responses. " +
+
+                    "LANGUAGE RULES: " +
+                    "4. Reply in the EXACT SAME LANGUAGE the user is speaking. Supported languages include: " +
+                    "   - English, Urdu (اردو), Punjabi (ਪੰਜਾਬੀ/پنجابی), Sindhi (سنڌي), Pashto (پښتو), and other regional languages. " +
+                    "5. If user writes in Roman Urdu (e.g., 'kya aap meri madad kar sakte hain'), respond in Roman Urdu. " +
+                    "6. If user writes in Urdu script, respond in Urdu script. Match their writing style exactly. " +
+                    "7. Maintain consistent language throughout the conversation unless user switches languages. " +
+
+                    "PRODUCT & SHOPPING RULES (CRITICAL): " +
+                    "8. NEVER invent, fabricate, or hallucinate product names, prices, SKUs, or availability. " +
+                    "9. If you don't have specific product information, say 'I don't have real-time access to current inventory' or suggest browsing the app. " +
+                    "10. Do NOT make up specific rupee amounts (e.g., don't say 'This shirt costs Rs. 2,500' unless verified). " +
+                    "11. Provide GENERAL fashion advice (e.g., 'Formal shirts pair well with dress trousers') rather than specific products. " +
+                    "12. When asked about prices, say 'Prices vary - please check the app for current rates' instead of guessing. " +
+                    "13. For availability questions, guide users to check the app's search/filter features rather than confirming stock. " +
+
+                    "FASHION EXPERTISE: " +
+                    "14. Offer styling tips, color combinations, seasonal trends, and outfit suggestions based on occasions. " +
+                    "15. Consider Pakistani fashion preferences, cultural occasions (Eid, weddings, formal events), and local climate. " +
+                    "16. Suggest clothing categories (e.g., 'Try looking at kurtas, lawn suits, or western wear') without naming fake products. " +
+                    "17. Help with size guides, fabric care tips, and styling advice for different body types. " +
+
+                    "RESPONSE FORMAT: " +
+                    "18. Keep responses under 100 words unless user specifically requests detailed information. " +
+                    "19. Use bullet points for multiple suggestions. " +
+                    "20. End helpful responses with: 'Would you like more styling tips?' or similar engagement. " +
+
+                    "HONESTY OVER EVERYTHING: " +
+                    "21. If unsure about fashion advice, say 'That's a great question - current trends suggest...' rather than stating false facts. " +
+                    "22. Always prioritize accurate, helpful information over appearing knowledgeable.";
+
 
     @Nullable
     @Override
@@ -85,7 +130,7 @@ public class LuxuryFragment extends Fragment {
                 .readTimeout(60, TimeUnit.SECONDS)
                 .build();
 
-        addResponse("Hello! I am your AI assistant. Choose a model above and ask me anything about fashion trends or products!");
+        addResponse("Hello! I am your AI assistant. Choose a model above and ask me anything about fashion!\n\nسلام! میں آپ کا اے آئی اسسٹنٹ ہوں۔ ماڈل منتخب کریں اور فیشن کے بارے میں کچھ بھی پوچھیں!");
 
         btnSend.setOnClickListener(v -> {
             String message = etMessage.getText().toString().trim();
@@ -111,7 +156,7 @@ public class LuxuryFragment extends Fragment {
     private void sendToGemini(String message) {
         String jsonBody = "{"
                 + "\"contents\": [{"
-                + "\"parts\": [{\"text\": \"You are a shopping assistant for eMyntra. Answer concisely: " + message + "\"}]"
+                + "\"parts\": [{\"text\": \"" + SYSTEM_INSTRUCTION + "\\n\\nUser: " + message + "\"}]"
                 + "}]"
                 + "}";
 
@@ -121,13 +166,13 @@ public class LuxuryFragment extends Fragment {
         performNetworkRequest(request, "Gemini");
     }
 
+
     // --- PERPLEXITY LOGIC ---
     private void sendToPerplexity(String message) {
-        // Perplexity uses OpenAI-compatible format
         String jsonBody = "{"
                 + "\"model\": \"sonar\","
                 + "\"messages\": ["
-                + "  {\"role\": \"system\", \"content\": \"You are a helpful shopping assistant for eMyntra.\"},"
+                + "  {\"role\": \"system\", \"content\": \"" + SYSTEM_INSTRUCTION + "\"},"
                 + "  {\"role\": \"user\", \"content\": \"" + message + "\"}"
                 + "]"
                 + "}";
@@ -141,6 +186,7 @@ public class LuxuryFragment extends Fragment {
 
         performNetworkRequest(request, "Perplexity");
     }
+
 
     // --- SHARED NETWORK HANDLER ---
     private void performNetworkRequest(Request request, String modelType) {

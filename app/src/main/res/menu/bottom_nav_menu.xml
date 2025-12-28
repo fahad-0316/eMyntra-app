@@ -4,19 +4,20 @@
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
         android:title="Home" />
+
     <item
         android:id="@+id/nav_under999"
         android:icon="@drawable/ic_qr_code"
         android:title="QR Code" />
-        />
 
     <item
         android:id="@+id/nav_luxury"
         android:icon="@drawable/ic_ai_stars"
         android:title="AI Chat" />
-        />
+
+    <!-- UPDATED: Changed from Bag to Fashion AI -->
     <item
         android:id="@+id/nav_bag"
-        android:icon="@drawable/ic_bag"
-        android:title="Bag" />
+        android:icon="@drawable/ic_fashion_camera"
+        android:title="Fashion AI" />
 </menu>

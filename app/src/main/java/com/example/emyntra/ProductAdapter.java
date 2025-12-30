@@ -1,7 +1,7 @@
 package com.example.emyntra;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.content.Intent; // Import Intent
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,37 +48,39 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             holder.ivProductImage.setImageResource(R.drawable.ic_placeholder_image);
         }
 
-        // --- Handle Like Button Initial State ---
-        updateLikeButton(holder.ivWishlist, item.isLiked());
+        // --- Handle Like Button State ---
+        // Clear any tint so we can see the red/outline images clearly
+        holder.ivWishlist.setColorFilter(null);
 
-        // --- Handle Like Button Click ---
-        holder.ivWishlist.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 1. Toggle the boolean state in the data model
-                boolean newState = !item.isLiked();
-                item.setLiked(newState);
+        if (item.isLiked()) {
+            holder.ivWishlist.setImageResource(R.drawable.ic_heart_filled);
+        } else {
+            holder.ivWishlist.setImageResource(R.drawable.ic_heart_outline);
+        }
 
-                // 2. Update the UI immediately to reflect the change
-                updateLikeButton(holder.ivWishlist, newState);
+        // Like Button Click Listener
+        holder.ivWishlist.setOnClickListener(v -> {
+            boolean newState = !item.isLiked();
+            item.setLiked(newState);
+
+            // Update UI immediately
+            holder.ivWishlist.setColorFilter(null);
+            if (newState) {
+                holder.ivWishlist.setImageResource(R.drawable.ic_heart_filled);
+            } else {
+                holder.ivWishlist.setImageResource(R.drawable.ic_heart_outline);
             }
         });
-    }
 
-    /**
-     * Helper method to update the heart icon based on the liked state.
-     */
-    private void updateLikeButton(ImageView imageView, boolean isLiked) {
-        // Clear any previous color filter so the icons show their true colors
-        imageView.setColorFilter(null);
-
-        if (isLiked) {
-            // User liked the item: Show red filled heart
-            imageView.setImageResource(R.drawable.ic_heart_filled);
-        } else {
-            // Item not liked: Show outline heart
-            imageView.setImageResource(R.drawable.ic_heart_outline);
-        }
+        // --- NEW: ITEM CLICK LISTENER (Opens Detail Page) ---
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductDetailActivity.class);
+            // Pass data to the detail activity
+            intent.putExtra("BRAND", item.getBrand());
+            intent.putExtra("PRICE", item.getPrice());
+            intent.putExtra("IMAGE_NAME", item.getImageName());
+            context.startActivity(intent);
+        });
     }
 
     @Override

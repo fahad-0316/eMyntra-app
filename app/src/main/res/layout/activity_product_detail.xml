@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <!-- Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_bar"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Product Image Section -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="450dp">
+
+                <ImageView
+                    android:id="@+id/iv_product_detail_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_placeholder_image"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Product Image" />
+
+                <!-- Overlay Badge -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TRENDING"
+                    android:background="#E0007A"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:layout_margin="16dp"
+                    android:layout_gravity="top|start"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Header: Brand & Title -->
+                <TextView
+                    android:id="@+id/tv_product_detail_brand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Roadster"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorTextPrimary"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Men Regular Fit Solid Casual Shirt"
+                    android:textSize="16sp"
+                    android:textColor="#555555"
+                    android:layout_marginTop="4dp"/>
+
+                <!-- Price Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="bottom"
+                    android:layout_marginTop="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_product_detail_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rs. 719"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorTextPrimary"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Rs. 1499"
+                        android:textSize="16sp"
+                        android:textColor="#888888"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/strike_through_list" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(52% OFF)"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#F26C21"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginBottom="2dp"/>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="inclusive of all taxes"
+                    android:textSize="12sp"
+                    android:textColor="#388E3C"
+                    android:layout_marginTop="4dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E0E0E0"
+                    android:layout_marginVertical="16dp"/>
+
+                <!-- Product Details -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Product Details"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorTextPrimary"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Elevate your everyday style with this premium quality apparel. Designed for comfort and durability, this piece features a modern fit that looks great on everyone. Whether you're heading to work or a casual outing, this versatile item is a must-have in your wardrobe.\n\n• Soft and breathable fabric\n• Durable stitching for long-lasting wear\n• Easy to wash and maintain\n• Perfect for all seasons"
+                    android:lineSpacingExtra="4dp"
+                    android:textColor="#555555"
+                    android:textSize="14sp"/>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="#F5F5F5"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Specifications (Table Style) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Specifications"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorTextPrimary"
+                    android:layout_marginBottom="16dp"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sleeve Length"
+                            android:textColor="#888888"
+                            android:textSize="14sp"
+                            android:layout_marginEnd="16dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Long Sleeves"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="14sp"/>
+                    </TableRow>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0"/>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fit"
+                            android:textColor="#888888"
+                            android:textSize="14sp"
+                            android:layout_marginEnd="16dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Regular Fit"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="14sp"/>
+                    </TableRow>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0"/>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pattern Type"
+                            android:textColor="#888888"
+                            android:textSize="14sp"
+                            android:layout_marginEnd="16dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Solid / Plain"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="14sp"/>
+                    </TableRow>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F0F0F0"/>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Wash Care"
+                            android:textColor="#888888"
+                            android:textSize="14sp"
+                            android:layout_marginEnd="16dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Machine Wash"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="14sp"/>
+                    </TableRow>
+                </TableLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="#F5F5F5"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Ratings & Reviews -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ratings &amp; Reviews"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorTextPrimary"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4.2"
+                            android:textSize="36sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorTextPrimary"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1.2k Verified Buyers"
+                            android:textSize="12sp"
+                            android:textColor="#888888"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="#E0E0E0"
+                        android:layout_marginHorizontal="24dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <!-- 5 Star Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="30dp"
+                                android:layout_height="wrap_content"
+                                android:text="5 ★"
+                                android:textSize="12sp"
+                                android:textColor="#888888" />
+                            <ProgressBar
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="0dp"
+                                android:layout_height="4dp"
+                                android:layout_weight="1"
+                                android:progress="70"
+                                android:progressTint="#388E3C"
+                                android:layout_marginHorizontal="8dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="800"
+                                android:textSize="12sp"
+                                android:textColor="#888888"/>
+                        </LinearLayout>
+
+                        <!-- 4 Star Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="30dp"
+                                android:layout_height="wrap_content"
+                                android:text="4 ★"
+                                android:textSize="12sp"
+                                android:textColor="#888888" />
+                            <ProgressBar
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="0dp"
+                                android:layout_height="4dp"
+                                android:layout_weight="1"
+                                android:progress="20"
+                                android:progressTint="#388E3C"
+                                android:layout_marginHorizontal="8dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="250"
+                                android:textSize="12sp"
+                                android:textColor="#888888"/>
+                        </LinearLayout>
+
+                        <!-- 3 Star Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="30dp"
+                                android:layout_height="wrap_content"
+                                android:text="3 ★"
+                                android:textSize="12sp"
+                                android:textColor="#888888" />
+                            <ProgressBar
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="0dp"
+                                android:layout_height="4dp"
+                                android:layout_weight="1"
+                                android:progress="5"
+                                android:progressTint="#FFC107"
+                                android:layout_marginHorizontal="8dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="100"
+                                android:textSize="12sp"
+                                android:textColor="#888888"/>
+                        </LinearLayout>
+
+                        <!-- 2 Star Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="30dp"
+                                android:layout_height="wrap_content"
+                                android:text="2 ★"
+                                android:textSize="12sp"
+                                android:textColor="#888888" />
+                            <ProgressBar
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="0dp"
+                                android:layout_height="4dp"
+                                android:layout_weight="1"
+                                android:progress="2"
+                                android:progressTint="#F26C21"
+                                android:layout_marginHorizontal="8dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="30"
+                                android:textSize="12sp"
+                                android:textColor="#888888"/>
+                        </LinearLayout>
+
+                        <!-- 1 Star Row -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="30dp"
+                                android:layout_height="wrap_content"
+                                android:text="1 ★"
+                                android:textSize="12sp"
+                                android:textColor="#888888" />
+                            <ProgressBar
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="0dp"
+                                android:layout_height="4dp"
+                                android:layout_weight="1"
+                                android:progress="3"
+                                android:progressTint="#D32F2F"
+                                android:layout_marginHorizontal="8dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="20"
+                                android:textSize="12sp"
+                                android:textColor="#888888"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Bottom padding to ensure content isn't hidden behind the sticky button bar -->
+                <Space android:layout_width="match_parent" android:layout_height="80dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Sticky Bottom Bar -->
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:background="@android:color/white"
+        android:elevation="16dp"
+        android:padding="0dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_wishlist"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="WISHLIST"
+            android:textColor="@color/colorTextPrimary"
+            android:backgroundTint="@android:color/white"
+            app:strokeColor="#E0E0E0"
+            app:strokeWidth="1dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="0dp"
+            android:textStyle="bold"
+            app:icon="@drawable/ic_heart_outline"
+            app:iconTint="@color/colorTextPrimary"
+            app:iconGravity="textStart"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_to_bag"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:text="ADD TO BAG"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/colorAccent"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:cornerRadius="0dp"
+            android:textStyle="bold"
+            app:icon="@drawable/ic_cart_filled"
+            app:iconTint="@android:color/white"
+            app:iconGravity="textStart"/>
+    </LinearLayout>
+
+</RelativeLayout>

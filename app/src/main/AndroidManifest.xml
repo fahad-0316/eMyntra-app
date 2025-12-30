@@ -81,6 +81,11 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name=".ProductDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
         <!-- Firebase Messaging Service (Required for Notifications) -->
         <service
             android:name=".MyFirebaseMessagingService"

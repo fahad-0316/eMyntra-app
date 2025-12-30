@@ -1,6 +1,7 @@
 package com.example.emyntra;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,11 +39,16 @@ public class SearchProductAdapter extends RecyclerView.Adapter<SearchProductAdap
         holder.tvPrice.setText(item.getPrice());
 
         // --- Handle Image Loading ---
-        int imageId = context.getResources().getIdentifier(item.getImageName(), "drawable", context.getPackageName());
-        if (imageId != 0) {
-            holder.ivProductImage.setImageResource(imageId);
+        // Added null check for imageName
+        if (item.getImageName() != null) {
+            int imageId = context.getResources().getIdentifier(item.getImageName(), "drawable", context.getPackageName());
+            if (imageId != 0) {
+                holder.ivProductImage.setImageResource(imageId);
+            } else {
+                holder.ivProductImage.setImageResource(R.drawable.ic_placeholder_image);
+            }
         } else {
-            holder.ivProductImage.setImageResource(R.drawable.ic_placeholder_image);
+             holder.ivProductImage.setImageResource(R.drawable.ic_placeholder_image);
         }
 
         // --- Handle Cart Button Initial State ---
@@ -66,6 +72,17 @@ public class SearchProductAdapter extends RecyclerView.Adapter<SearchProductAdap
                     Toast.makeText(context, "Removed from Cart", Toast.LENGTH_SHORT).show();
                 }
             }
+        });
+
+        // --- NEW: ITEM CLICK LISTENER (Opens Detail Page) ---
+        // Added this listener so Search items also open the detail page
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ProductDetailActivity.class);
+            // Pass data to the detail activity
+            intent.putExtra("BRAND", item.getBrand());
+            intent.putExtra("PRICE", item.getPrice());
+            intent.putExtra("IMAGE_NAME", item.getImageName());
+            context.startActivity(intent);
         });
     }
 
